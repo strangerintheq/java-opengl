@@ -1,4 +1,4 @@
-package com.github.strangerintheq.java.opengl;
+package com.github.strangerintheq.java.opengl.core;
 
 import java.awt.Color;
 import java.nio.ByteBuffer;

@@ -1,10 +1,11 @@
-package com.github.strangerintheq.java.opengl;
+package com.github.strangerintheq.java.opengl.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.net.URL;
 
+import com.github.strangerintheq.java.opengl.Mandelbort;
 import com.jogamp.common.util.IOUtil;
 
 public class Files {
@@ -12,7 +13,7 @@ public class Files {
         StringBuilder src = new StringBuilder();
         BufferedReader reader = null;
         try {
-            ClassLoader classLoader = TwoTriangles.class.getClassLoader();
+            ClassLoader classLoader = Mandelbort.class.getClassLoader();
             URL resource = classLoader.getResource(filename);
             reader = new BufferedReader(new FileReader(new File(resource.getFile())));
             String line;

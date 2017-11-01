@@ -9,23 +9,28 @@ import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
-import javax.media.opengl.GLException;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.SwingUtilities;
 
+import com.github.strangerintheq.java.opengl.core.App;
+import com.github.strangerintheq.java.opengl.core.Shader;
+import com.github.strangerintheq.java.opengl.core.VBO;
+import com.github.strangerintheq.java.opengl.utils.Files;
 import com.jogamp.opengl.util.Animator;
 
-// https://stackoverflow.com/a/19043837/2393786
-public class TwoTriangles extends Frame implements GLEventListener {
+public class Mandelbort extends App {
 
     private Shader shader;
     private VBO quad;
     private long started;
-    int width;
-    int height;
+    private int width;
+    private int height;
+    private double zoom = 1;
+    private double x = 0;
+    private double y = 0;
 
-    TwoTriangles() {
+    Mandelbort() {
         GLProfile profile = GLProfile.getDefault();
         GLCapabilities capabilities = new GLCapabilities(profile);
         GLCanvas canvas = new GLCanvas(capabilities);
@@ -43,14 +48,17 @@ public class TwoTriangles extends Frame implements GLEventListener {
         });
     }
 
-    public void display(GLAutoDrawable drawable) {
-        GL2 gl = drawable.getGL().getGL2();
+    @Override
+    protected void render() {
         shader.enable();
-        quad.enable();
+
         shader.setFloat("time", time());
         shader.setFloat("zoom", 1);
-        shader.setInt("iterations", 128);
+        shader.setInt("iterations", 512);
         shader.setVec2("resolution", width, height);
+        shader.setVec2("center", x, y);
+        quad.enable();
+        quad.drawTriangleStrip();
         gl.glDrawArrays(GL2.GL_TRIANGLE_STRIP, 0, quad.size());
         quad.disable();
         shader.disable();
@@ -63,7 +71,6 @@ public class TwoTriangles extends Frame implements GLEventListener {
 
     public void init(GLAutoDrawable drawable) {
         GL2 gl = drawable.getGL().getGL2();
-        gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         String vs = Files.read("line.vertex.glsl");
         String fs = Files.read("line.fragment.glsl");
         shader = new Shader(gl, vs, fs);
@@ -81,12 +88,11 @@ public class TwoTriangles extends Frame implements GLEventListener {
         this.height = height;
     }
 
-    public void dispose(GLAutoDrawable drawable) {
-    }
+    public void dispose(GLAutoDrawable drawable) { }
 
     public static void main(String[] args) {
-        TwoTriangles frame = new TwoTriangles();
-        frame.setTitle("TwoTriangles");
+        Mandelbort frame = new Mandelbort();
+        frame.setTitle("Mandelbort");
         frame.setSize(640, 480);
         frame.setLocationRelativeTo(null);
         SwingUtilities.invokeLater(() -> frame.setVisible(true));
