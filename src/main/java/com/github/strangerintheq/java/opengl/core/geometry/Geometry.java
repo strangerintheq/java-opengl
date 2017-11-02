@@ -1,4 +1,4 @@
-package com.github.strangerintheq.java.opengl.core;
+package com.github.strangerintheq.java.opengl.core.geometry;
 
 import com.jogamp.common.nio.Buffers;
 
@@ -7,15 +7,17 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
+import javax.media.opengl.GL4;
 
-public class VBO {
+public class Geometry {
 
-    private final GL2 gl;
+    private final GL4 gl;
     private int[] id = new int[1];
     private int size;
 
-    public VBO(GL2 gl, float[] vertices) {
+    public Geometry(GL4 gl, float[] vertices) {
         this.gl = gl;
         size = vertices.length;
         createVBO();
@@ -36,7 +38,7 @@ public class VBO {
             GL2.GL_ARRAY_BUFFER,
             quadVertices.length * 4,
             asFloatBuffer(quadVertices),
-            GL2.GL_STREAM_DRAW
+            GL2.GL_STATIC_DRAW
         );
     }
 
@@ -46,16 +48,13 @@ public class VBO {
 
     public void enable() {
         bind();
-        gl.glEnableClientState(GL2.GL_VERTEX_ARRAY);
-        gl.glVertexPointer(3, GL2.GL_FLOAT, 0, 0);
-    }
-
-    public int size() {
-        return size;
+//        gl.glBindAttribLocation(id[0], 0, "VertexPosition");
+        gl.glEnableVertexAttribArray(0);
+        gl.glVertexAttribPointer( 0, 2, GL4.GL_FLOAT,  false, 0, 0 );
     }
 
     public void disable (){
-        gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);
+        gl.glDisableVertexAttribArray(0);
     }
 
     public void delete() {
@@ -63,5 +62,6 @@ public class VBO {
     }
 
     public void drawTriangleStrip() {
+        gl.glDrawArrays(GL2.GL_TRIANGLE_STRIP, 0, size);
     }
 }

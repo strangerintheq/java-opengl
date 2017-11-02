@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.net.URL;
 
-import com.github.strangerintheq.java.opengl.Mandelbort;
+import com.github.strangerintheq.java.opengl.example.Mandelbort;
 import com.jogamp.common.util.IOUtil;
 
 public class Files {

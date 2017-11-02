@@ -11,12 +11,11 @@ import java.awt.event.WindowEvent;
 public abstract class App extends Frame implements GLEventListener {
 
     private final long start = System.currentTimeMillis();
-
-    private int width;
-    private int height;
+    protected int width;
+    protected int height;
     private GLCanvas canvas;
     private Animator animator;
-    protected GL2 gl;
+    protected GL4 gl;
 
     public App() {
         GLProfile profile = GLProfile.getDefault();
@@ -44,9 +43,13 @@ public abstract class App extends Frame implements GLEventListener {
         return this;
     }
 
+    public float time() {
+        return (float) ((System.currentTimeMillis() - start) / 1000);
+    }
+
     @Override
     public void init(GLAutoDrawable glAutoDrawable) {
-        gl = glAutoDrawable.getGL().getGL2();
+        gl = glAutoDrawable.getGL().getGL4();
         init();
     }
 
