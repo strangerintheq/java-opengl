@@ -3,7 +3,7 @@
 layout (location = 0) out vec4 FragColor;
 
 uniform int iterations;
-uniform ivec2 resolution;
+uniform dvec2 resolution;
 uniform dvec2 center;
 //uniform float time;
 uniform double zoom;
@@ -37,7 +37,7 @@ vec3 fractal(dvec2 c) {
 void main(void) {
     dvec2 c = gl_FragCoord.xy;
 	c = -resolution + 2.0 * c;
-    c *= zoom/double(resolution.y);
+    c *= zoom/resolution.y;
     c += center;
 	FragColor = vec4(fractal(c), 1.0);
 }

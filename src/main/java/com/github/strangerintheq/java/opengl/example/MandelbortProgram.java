@@ -19,7 +19,7 @@ public class MandelbortProgram extends ShaderProgram {
     public DoubleUniform zoom = uniforms.doubleUniform("zoom");
     public Vec2dUniform center = uniforms.dvec2Uniform("center");
     public IntUniform iterations = uniforms.intUniform("iterations");
-    public Vec2iUniform resolution = uniforms.ivec2Uniform("resolution");
+    public Vec2dUniform resolution = uniforms.dvec2Uniform("resolution");
 
     public MandelbortProgram(GL4 gl) {
         super(gl, vs, fs);

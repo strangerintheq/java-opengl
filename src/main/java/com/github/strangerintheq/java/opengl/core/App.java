@@ -13,7 +13,7 @@ public abstract class App extends Frame implements GLEventListener {
     private final long start = System.currentTimeMillis();
     protected int width;
     protected int height;
-    private GLCanvas canvas;
+    protected GLCanvas canvas;
     private Animator animator;
     protected GL4 gl;
 

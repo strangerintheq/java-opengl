@@ -6,24 +6,22 @@ import javax.swing.SwingUtilities;
 import com.github.strangerintheq.java.opengl.core.App;
 import com.github.strangerintheq.java.opengl.core.Primitives;
 import com.github.strangerintheq.java.opengl.core.geometry.Geometry;
+import com.github.strangerintheq.java.opengl.core.mouse.Mouse2d;
 
 public class Mandelbort extends App {
 
     private MandelbortProgram fractal;
     private Geometry quad;
-
-    private double zoom = 1.5;
-    private double x = 0;
-    private double y = 0;
+    private Mouse2d mouse;
 
     @Override
     protected void render() {
         fractal.enable();
 //        fractal.time.set(time());
-        fractal.zoom.set(zoom);
-        fractal.iterations.set(128);
+        fractal.zoom.set(mouse.zoom);
+        fractal.iterations.set(256);
         fractal.resolution.set(width, height);
-        fractal.center.set(x, y);
+        fractal.center.set(mouse.centerX, mouse.centerY);
         quad.enable();
         quad.drawTriangleStrip();
         quad.disable();
@@ -34,6 +32,17 @@ public class Mandelbort extends App {
         GL4 gl = drawable.getGL().getGL4();
         fractal = new MandelbortProgram(gl);
         quad = new Geometry(gl, Primitives.UNIT_QUAD);
+        mouse = new Mouse2d(0,0, 1.5, width, height);
+        canvas.addMouseMotionListener(mouse);
+        canvas.addMouseListener(mouse);
+        canvas.addMouseWheelListener(mouse);
+
+    }
+
+    @Override
+    public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
+        super.reshape(drawable, x, y, width, height);
+        mouse.updateResolution(width, height);
     }
 
     public static void main(String[] args) {
