@@ -1,6 +1,8 @@
-package com.github.strangerintheq.java.opengl.core.shader.uniform;
+package com.github.strangerintheq.java.opengl.core.shader.uniform.types;
 
 import javax.media.opengl.GL4;
+
+import com.github.strangerintheq.java.opengl.core.shader.uniform.Uniform;
 
 public class Vec2dUniform extends Uniform {
 

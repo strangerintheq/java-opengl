@@ -2,13 +2,15 @@ package com.github.strangerintheq.java.opengl.core.shader;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-
 import javax.media.opengl.GL4;
+
+import com.github.strangerintheq.java.opengl.core.shader.uniform.Uniforms;
 
 public class ShaderProgram {
 	
 	protected final int id;
 	protected final GL4 gl;
+	protected Uniforms uniforms;
 
 	public ShaderProgram(GL4 gl, String vs, String fs) {
 		this.gl = gl;
@@ -21,10 +23,12 @@ public class ShaderProgram {
 		gl.glValidateProgram(id);
 		IntBuffer intBuffer = IntBuffer.allocate(1);
 		gl.glGetProgramiv(id, GL4.GL_LINK_STATUS, intBuffer);
-		if (intBuffer.get(0) == GL4.GL_TRUE)
-			return;
-		if (id > 0) gl.glDeleteProgram(id);
-		throw new IllegalStateException();
+		if (intBuffer.get(0) == GL4.GL_TRUE) {
+			this.uniforms = new Uniforms(gl, id);
+		} else {
+			if (id > 0) gl.glDeleteProgram(id);
+			throw new IllegalStateException();
+		}
 	}
 	
 	public void enable() {
