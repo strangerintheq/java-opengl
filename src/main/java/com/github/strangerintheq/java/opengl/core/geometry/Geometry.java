@@ -48,6 +48,7 @@ public class Geometry {
 
     public void enable() {
         bind();
+// not needed when using layout qualifier in shader
 //        gl.glBindAttribLocation(id[0], 0, "VertexPosition");
         gl.glEnableVertexAttribArray(0);
         gl.glVertexAttribPointer( 0, 2, GL4.GL_FLOAT,  false, 0, 0 );

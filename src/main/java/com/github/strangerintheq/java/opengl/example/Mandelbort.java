@@ -12,7 +12,7 @@ public class Mandelbort extends App {
     private MandelbortProgram fractal;
     private Geometry quad;
 
-    private double zoom = 1;
+    private double zoom = 1.5;
     private double x = 0;
     private double y = 0;
 
@@ -20,10 +20,10 @@ public class Mandelbort extends App {
     protected void render() {
         fractal.enable();
 //        fractal.time.set(time());
-//        fractal.zoom.set(zoom);
-//        fractal.iterations.set(512);
-//        fractal.resolution.set(width, height);
-//        fractal.center.set(x, y);
+        fractal.zoom.set(zoom);
+        fractal.iterations.set(128);
+        fractal.resolution.set(width, height);
+        fractal.center.set(x, y);
         quad.enable();
         quad.drawTriangleStrip();
         quad.disable();
@@ -33,7 +33,7 @@ public class Mandelbort extends App {
     public void init(GLAutoDrawable drawable) {
         GL4 gl = drawable.getGL().getGL4();
         fractal = new MandelbortProgram(gl);
-        quad = new Geometry(gl, Primitives.QUAD);
+        quad = new Geometry(gl, Primitives.UNIT_QUAD);
     }
 
     public static void main(String[] args) {
