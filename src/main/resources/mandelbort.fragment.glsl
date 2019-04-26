@@ -5,7 +5,7 @@ layout (location = 0) out vec4 FragColor;
 uniform int iterations;
 uniform dvec2 resolution;
 uniform dvec2 center;
-//uniform float time;
+uniform float time;
 uniform double zoom;
 
 // multiply complex numbers
@@ -29,7 +29,7 @@ vec3 fractal(dvec2 c) {
     	    break;
     	if (dot(z, z) > 4.0)
     	    return color(i, z);
-    	z = mul(z, z) + c;
+    	z = mul(z, z) + vec2(sin(time/100.), cos(time/100.));
     }
     return vec3(0.);
 }

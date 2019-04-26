@@ -3,6 +3,7 @@ package com.github.strangerintheq.java.opengl.core.shader.uniform;
 import javax.media.opengl.GL4;
 
 import com.github.strangerintheq.java.opengl.core.shader.uniform.types.DoubleUniform;
+import com.github.strangerintheq.java.opengl.core.shader.uniform.types.FloatUniform;
 import com.github.strangerintheq.java.opengl.core.shader.uniform.types.IntUniform;
 import com.github.strangerintheq.java.opengl.core.shader.uniform.types.Vec2dUniform;
 import com.github.strangerintheq.java.opengl.core.shader.uniform.types.Vec2iUniform;
@@ -20,7 +21,9 @@ public class Uniforms {
     public DoubleUniform doubleUniform(String name) {
         return new DoubleUniform(gl, programId, name);
     }
-
+    public FloatUniform floatUniform(String name) {
+        return new FloatUniform(gl, programId, name);
+    }
     public Vec2dUniform dvec2Uniform(String name) {
         return new Vec2dUniform(gl, programId, name);
     }

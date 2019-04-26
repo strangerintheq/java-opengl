@@ -17,7 +17,7 @@ public class Mandelbort extends App {
     @Override
     protected void render() {
         fractal.enable();
-//        fractal.time.set(time());
+        fractal.time.set(time());
         fractal.zoom.set(mouse.zoom);
         fractal.iterations.set(256);
         fractal.resolution.set(width, height);
